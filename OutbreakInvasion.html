@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D FPS - Tactical Outbreak</title>
+    <title>3D FPS - Outbreak Invasion</title>
     <style>
         body { margin: 0; overflow: hidden; font-family: sans-serif; user-select: none; }
         canvas { display: block; }
@@ -78,7 +78,7 @@
 <body>
 
     <div id="overlay">
-        <h1 id="overlay-title">OUTBREAK PROTOCOL</h1>
+        <h1 id="overlay-title">OUTBREAK INVASION</h1>
         <p id="overlay-desc">Click anywhere to Begin</p>
         <p style="font-size: 0.8em; color: #aaa; margin-top: 20px;">WASD - Move | Space - Jump | 1, 2, 3 or Scroll - Change Weapon | R - Reload | Right Click - Scope | Left Click - Fire | E - Interact</p>
     </div>
@@ -504,6 +504,8 @@
 
         overlay.addEventListener('click', () => {
             if(isGameOver) location.reload();
+            // Forces focus onto the embedded frame before locking pointer
+            window.focus();
             document.body.requestPointerLock();
         });
 
@@ -700,7 +702,7 @@
                         enemy.children.forEach(p => p.material.color.setHex(0xff0000));
                         const killScore = currentWeapon === 'sniper' ? 25 : 10;
                         
-                        // Wait a moment so the red flash is visible, then remove the zombie
+                        // Wait a moment so the red flash is visible, then remove the enemy
                         setTimeout(() => { 
                             const cIdx = enemies.indexOf(enemy);
                             if (cIdx > -1) {
@@ -710,7 +712,7 @@
                                 uiScore.innerText=score; 
                                 spawnEnemy(); 
                             }
-                        }, 150); // Increased from 60ms to 150ms for visual clarity
+                        }, 150);
                     } else {
                         // Flash PINK on hit
                         enemy.children.forEach(p => p.material.color.setHex(0xff66cc));
